@@ -2,7 +2,7 @@ console.log('Week 1 Assignment 2: Data Import, Parse, and Discovery');
 
 function parse(d){
 	/**
-	1.0 
+	1.0
 	YOUR CODE HERE
 	Complete the parse function to import the trips dataset with the appropriate types and property names
 	Each trip should be represented as following
@@ -35,7 +35,7 @@ d3.csv('./data/hubway_trips_reduced.csv', parse, function(err,trips){
 
 	/***
 	2.0 Discovering min, max, mean, median
-	
+
 	2.1 What is the duration in seconds of the longest trip?
 	Hint: use d3.max()
 	YOUR CODE HERE:
@@ -65,7 +65,7 @@ d3.csv('./data/hubway_trips_reduced.csv', parse, function(err,trips){
 
 	/***
 	3.0 Filter, sort, map, slice
-	
+
 	3.1 Let's separate all the trips into those taken by registered vs casual users
 	Hint: use Array.prototype.filter
 	YOUR CODE HERE:
@@ -102,7 +102,7 @@ d3.csv('./data/hubway_trips_reduced.csv', parse, function(err,trips){
 	Does Array.prototype.slice create a new array, or modify existing arrays in place?
 	YOUR CODE HERE:
 	***/
-
+  console.log(top10RegisteredTrips === registeredTrips || bottom10RegisteredTrips === registeredTrips);
 	/**
 	3.4 Instead of an array of trips, generate a completely new array of departure timestamps (i.e. t0)
 	Hint: use Array.prototype.map
@@ -114,25 +114,43 @@ d3.csv('./data/hubway_trips_reduced.csv', parse, function(err,trips){
 
 	/***
 	4.0 Nest
-	
+
 	4.1 Create a nested array, where trips are nested by departure station (i.e. station0)
 	YOUR CODE HERE:
 	***/
+	const nestedByDepStation = d3.nest()
+															 .key(function(d) { return d.station0 })
+															 .entries(trips);
 
+		console.log(nestedByDepStation);
 	/***
 	4.2 Further "collapse" this array, so that for each departure stations, we have the number of trips departing from each
 	Hint: there are multiple ways of doing this, including using d3.nest.rollup, but attempt this with what we've learned in this assignment
 	YOUR CODE HERE:
 	***/
+	const departureVolumeByStation0 = nestedByDepStation.map(function(d) { return { station0: d.key, trips: d.values.length } });
 
+	console.log(departureVolumeByStation0);
 	/***
 	5.0 BONUS Question
 	Can you answer 2.1 and 2.2 without using d3's built-in max and min methods?
 	Hint: Javascript has a built-in Math.max(...) function
 	YOUR CODE HERE:
 	***/
+	// 2.1
+ 	const maxDuration = tripDurations.reduce(function(a, b) {
+     	return Math.max(a, b);
+ 	});
 
-	
-});
+ 	console.log(`Longest trip duration is ${maxDuration} seconds`);
+
+ 	// 2.2
+ 	const minDuration = tripDurations.reduce(function(a, b) {
+     	return Math.min(a, b);
+ 	});
+
+ 	console.log(`Shortest trip duration is ${minDuration}`);
+
+ });
 
 console.log('After d3.csv');

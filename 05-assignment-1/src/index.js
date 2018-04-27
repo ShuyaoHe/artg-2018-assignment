@@ -7,7 +7,7 @@ console.log('Week 5 Assignment 1: Introduction to Promises');
 ***/
 //Just observe this part
 
-//A Promise object is literally a "promise" of a future value. When created, a Promise object is "pending", 
+//A Promise object is literally a "promise" of a future value. When created, a Promise object is "pending",
 //but once the future value is available, the Promise object is "resolved"
 //otherwise, if there is some error, the Promise object is "rejected"
 
@@ -30,7 +30,7 @@ console.log(somePromise);
 //5.1.2 To access the Promised, "resolved" value, use Promise.then()
 somePromise.then(function(res){
 	console.log('The resolution value is ' + res);
-}); 
+});
 
 /***
 	5.2 Construct your own Promise
@@ -38,6 +38,10 @@ somePromise.then(function(res){
 //Construct a Promise object that immediate resolves a string "Hello world"
 
 /*** YOUR CODE HERE ***/
+const helloPromise = new Promise(function(resolve, reject){
+	resolve("Hello world");
+});
+helloPromise.then(d => console.log('Promise = \"' + d + '\"' ));
 
 
 
@@ -55,6 +59,8 @@ const rejectHelloWorld = Promise.reject(new Error("Hello world"));
 
 /*** YOUR CODE HERE ***/
 
+resolveHelloWorld.then(d => console.log(d)); // then defines what to do when the promise is resolved
+rejectHelloWorld.catch(d => console.log(d)); // catch defines what to do when the promise is rejected (some error)
 
 
 /*** YOUR CODE HERE ***/
@@ -80,16 +86,10 @@ const dataPromise = new Promise((resolve, reject) => {
 });
 
 //What are the resolved value and rejection error of "dataPromise"?
+dataPromise.then(d => console.log(d)); // array of objects ==> the dataset loaded with d3.csv.
+// Columns ==> ["Station ID", "Station", "Latitude", "Longitude", "Municipality", "# of Docks", "Station Number"]
 
+dataPromise.catch(d => console.log(d)); // doesn't return. Is that undefined? Or does it even exist if no error on load?
 /***
 	Next we'll look at some of the features of Promises that makes them more powerful, like chaining and managing multiple async processes
 ***/
-
-
-
-
-
-
-
-
-

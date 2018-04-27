@@ -61,7 +61,7 @@ d3.select(document.querySelector('body'))
 		console.groupEnd();
 	});
 
-//2.6 
+//2.6
 //Also beware of "this" context when using selection.on
 d3.select(document.getElementById('dummy-button'))
 	.on('click', function(d){
@@ -71,6 +71,9 @@ d3.select(document.getElementById('dummy-button'))
 
 		//YOUR CODE HERE
 		//How do you change the html content of the button to "I'm clicked?"
+		var selection = d3.select(this);
+
+		selection.html("I'm clicked");
 	});
 
 
@@ -89,6 +92,6 @@ const xSaysY = function(x){
 }
 
 const simonSays = xSaysY('Simon');
-console.log(simonSays); 
+console.log(simonSays);
 console.log(typeof simonSays);
 console.log(simonSays('hello world'));
